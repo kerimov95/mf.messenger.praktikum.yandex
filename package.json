@@ -1,0 +1,26 @@
+{
+  "name": "mf.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "https://www.figma.com/file/KDiCGWmNTRyuB5sUId6jqi/YandexApp?node-id=0%3A1",
+  "main": "index.js",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kerimov95/mf.messenger.praktikum.yandex.git"
+  },
+  "author": "Kerimov Alikhan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kerimov95/mf.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/kerimov95/mf.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
