@@ -1,0 +1,14 @@
+.registration-form {
+    height: 650px;
+    width: 350px;
+    padding: 20px;
+}
+
+a {
+    text-align: center;
+    color: #5dd862;
+}
+
+h1 {
+    color: #5dd862;
+}
