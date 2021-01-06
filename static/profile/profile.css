@@ -1,11 +1,9 @@
-.item{
+.item {
     height: 30px;
-    min-width: 250px;
-    max-width: 700px;
-    width: 75%;
+    width: 100%;
 }
 
-input{
+input {
     outline: none;
     border: 0;
     background: none;
@@ -20,10 +18,54 @@ input{
     border-radius: 150px;
 }
 
-.profile-form{
-    width: 100%;
+.avatar:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.avatar:hover p {
+    visibility: visible;
+}
+
+.avatar p {
+    text-align: center;
+    color: white;
+    visibility: hidden;
+}
+
+.profile-form {
+    height: 100%;
+    margin-left: 20vw;
+    margin-right: 20vw;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
+}
+
+.editAvatar {
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+}
+
+.form-load-file {
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form-load-file span {
+    cursor: pointer;
 }
