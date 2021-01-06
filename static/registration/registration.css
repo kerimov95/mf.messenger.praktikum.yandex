@@ -1,5 +1,5 @@
 .registration-form {
-    height: 650px;
+    min-height: 650px;
     width: 350px;
     padding: 20px;
 }

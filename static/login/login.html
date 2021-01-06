@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,6 @@
 </head>
 
 <body>
-    <script src="../script.js"></script>
     <main>
         <div class="container-fluid d-flex justify-content-center align-items-center">
             <div class="shadow rounded d-flex flex-col justify-content-space-around align-items-center login-form">
@@ -26,13 +25,13 @@
                     </div>
                 </form>
                 <div class="w-100 d-flex flex-col justify-content-center align-items-center">
-                    <button onclick="consoleOutput({ login: user.login.value, password: user.password.value})"
-                        class="w-75 btn btn-success">Авторизоваться</button>
+                    <button onclick="consoleOutput(user)" class="w-75 btn btn-success">Авторизоваться</button>
                     <a href="../registration/registration.html">Нет аккаунта?</a>
                 </div>
             </div>
         </div>
     </main>
+    <script src="../script.js"></script>
 </body>
 
 </html>

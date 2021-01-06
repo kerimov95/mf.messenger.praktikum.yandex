@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,6 @@
 </head>
 
 <body>
-    <script src="../script.js"></script>
     <main>
         <div class="container-fluid d-flex justify-content-center align-items-center">
             <div
@@ -38,20 +37,12 @@
                     <label class="form-label" for="password_confirm">Пароль (еще раз)</label>
                     <input class="form-control" id="password_confirm" autocomplete="true" type="password">
                 </form>
-                <button onclick="consoleOutput(
-                        { 
-                            email : user.email.value,
-                            login: user.login.value,                         
-                            first_name: user.first_name.value,
-                            second_name: user.second_name.value,
-                            phone: user.phone.value,
-                            password: user.password.value
-    
-                        })" class="btn btn-success w-75">Зарегистрироваться</button>
+                <button onclick="consoleOutput(user)" class="btn btn-success w-75">Зарегистрироваться</button>
                 <a href="../login/login.html">Войти</a>
             </div>
         </div>
     </main>
+    <script src="../script.js" defer></script>
 </body>
 
 </html>
