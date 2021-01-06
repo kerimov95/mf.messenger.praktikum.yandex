@@ -12,54 +12,43 @@
 <body>
     <script src="../script.js"></script>
     <main>
-        <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+        <div class="container-fluid d-flex justify-content-center align-items-center">
             <div
                 class="d-flex flex-col justify-content-space-around shadow rounded align-items-center registration-form">
                 <h1>Регистрация</h1>
-                <div class="form-control">
-                    <form id="user">
-                        <div class="form-group">
-                            <label for="email">Почта</label>
-                            <input id="email" type="text">
-                        </div>
-                        <div class="form-group">
-                            <label for="login">Логин</label>
-                            <input id="login" type="text">
-                        </div>
-                        <div class="form-group">
-                            <label for="first_name">Имя</label>
-                            <input id="first_name" type="text">
-                        </div>
-                        <div class="form-group">
-                            <label for="second_name">Фамилия</label>
-                            <input id="second_name" type="text">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Телефон</label>
-                            <input id="phone" type="text">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Пароль</label>
-                            <input id="password" autocomplete="true" type="password">
-                        </div>
-                        <div class="form-group">
-                            <label for="password_confirm">Пароль (еще раз)</label>
-                            <input id="password_confirm" autocomplete="true" type="password">
-                        </div>
-                    </form>
-                    <button onclick="consoleOutput(
+                <form class="w-100 ml-3 mr-3" id="user">
+                    <label class="form-label" for="email">Почта</label>
+                    <input class="form-control" id="email" type="text">
+
+                    <label class="form-label" for="login">Логин</label>
+                    <input class="form-control" id="login" type="text">
+
+                    <label class="form-label" for="first_name">Имя</label>
+                    <input class="form-control" id="first_name" type="text">
+
+                    <label class="form-label" for="second_name">Фамилия</label>
+                    <input class="form-control" id="second_name" type="text">
+
+                    <label class="form-label" for="phone">Телефон</label>
+                    <input class="form-control" id="phone" type="text">
+
+                    <label class="form-label" for="password">Пароль</label>
+                    <input class="form-control" id="password" autocomplete="true" type="password">
+
+                    <label class="form-label" for="password_confirm">Пароль (еще раз)</label>
+                    <input class="form-control" id="password_confirm" autocomplete="true" type="password">
+                </form>
+                <button onclick="consoleOutput(
                         { 
                             email : user.email.value,
                             login: user.login.value,                         
                             first_name: user.first_name.value,
                             second_name: user.second_name.value,
                             phone: user.phone.value,
-                            password: user.password.value,
-                            password_confirm: user.password_confirm.value
+                            password: user.password.value
     
-                        })" class="btn btn-success">Зарегистрироваться</button>
-                    <a href="../login/login.html">Войти</a>
-                </div>
+                        })" class="btn btn-success w-75">Зарегистрироваться</button>
+                <a href="../login/login.html">Войти</a>
             </div>
         </div>
     </main>

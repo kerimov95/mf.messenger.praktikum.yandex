@@ -1,10 +1,6 @@
-.form-control {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
 
-.form-group input {
+.form-control {
     margin: 10px 0;
     display: block;
     outline: none;
@@ -14,9 +10,10 @@
     width: 100%;
 }
 
-.form-group label {
+.form-label{
     color: silver;
 }
+
 
 .btn {
     margin: 10px 0;
@@ -44,6 +41,21 @@
     border: 0;
 }
 
+.icon-button {
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    border: 0;
+    color: white;
+    background-color: #5dd862;
+    outline: none;
+}
+
+.icon-button:active {
+    background: rgba(0, 0, 0, 0.1);
+    color: white;
+}
+
 .badge {
     display: inline-block;
     padding: 0.35em 0.65em;
@@ -55,7 +67,7 @@
     background: #5dd862;
 }
 
-.rounded {
+.rounded-pill {
     border-radius: 50rem !important;
 }
 
@@ -228,6 +240,18 @@
     margin: 1rem !important;
 }
 
+.mt-1 {
+    margin-top: 0.25rem !important;
+}
+
+.mt-2 {
+    margin-top: 0.5rem !important;
+}
+
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
 .ml-1 {
     margin-left: 0.25rem !important;
 }
@@ -295,4 +319,16 @@
 
 .flex-fill {
     flex: 1 1 auto !important;
+}
+
+body{
+    margin: 0 ;
+}
+
+.text-success{
+    color: #5dd862;
+}
+
+.text-danger{
+    color: #dc3545;
 }
