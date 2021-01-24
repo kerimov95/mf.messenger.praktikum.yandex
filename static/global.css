@@ -70,6 +70,10 @@
     border-radius: 50rem !important;
 }
 
+.d-block {
+    display: block;
+}
+
 .d-flex {
     display: flex;
 }
@@ -342,4 +346,8 @@ body {
 
 .text-danger {
     color: #dc3545;
+}
+
+.invalid {
+    border-bottom: 1px solid red;
 }

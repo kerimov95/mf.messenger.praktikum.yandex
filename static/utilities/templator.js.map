@@ -1,0 +1,1 @@
+{"version":3,"file":"templator.js","sourceRoot":"","sources":["../../utilities/templator.ts"],"names":[],"mappings":"AAIA,UAAU,CAAC,cAAc,CAAC,MAAM,EAAE,UAAU,OAAY;IACpD,OAAO,IAAI,CAAC,SAAS,CAAC,OAAO,CAAC,CAAC;AACnC,CAAC,CAAC,CAAC;AAEH,MAAM,UAAU,OAAO,CAAC,QAAgB,EAAE,KAAU;IAChD,OAAO,UAAU,CAAC,OAAO,CAAC,QAAQ,CAAC,CAAC,KAAK,CAAC,CAAC;AAC/C,CAAC"}
