@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "tsc && node index.js",
-    "netlify-dp": "tsc"
+    "deploy": "tsc"
   },
   "repository": {
     "type": "git",
