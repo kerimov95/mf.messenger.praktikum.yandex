@@ -5,7 +5,7 @@ import { compile } from "../../utilities/templator.js";
 import { template } from "./profile.template.js";
 import { AvatarComponent } from "../../components/avatar/avatar.js"
 import { ItemInputComponent } from "../../components/itemInput/itemInput.js";
-import { getProfile, IProfile } from "../../restApi/profile.setvice.js";
+import { getProfile, IProfile } from "../../restApi/profile.service.js";
 import { ButtonComponent } from "../../components/button/button.js";
 import { ItemButtonComponent } from "../../components/itemButton/itemButton.js";
 

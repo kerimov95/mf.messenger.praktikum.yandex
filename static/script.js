@@ -1,4 +1,4 @@
-import { validate } from './utilities/validate.js'
+import { validate } from './www/utilities/validate.js'
 
 window.consoleOutput = function (obj) {
 

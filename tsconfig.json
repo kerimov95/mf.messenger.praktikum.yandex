@@ -7,7 +7,7 @@
     "alwaysStrict": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "outDir": "./static",
+    "outDir": "./static/www",
     "experimentalDecorators": true
   }
 }

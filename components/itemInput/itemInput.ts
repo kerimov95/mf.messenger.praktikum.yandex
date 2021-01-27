@@ -1,6 +1,6 @@
 import { Block } from "../../utilities/block.js";
 import { compile } from "../../utilities/templator.js";
-import { template } from "./ItemInput.template.js";
+import { template } from "./itemInput.template.js";
 
 export interface IItemInput {
     type?: string;

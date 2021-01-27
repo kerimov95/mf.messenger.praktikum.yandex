@@ -1,4 +1,4 @@
-import { getChats, IChat } from "../../restApi/chat.setvice.js";
+import { getChats, IChat } from "../../restApi/chat.service.js";
 import { Block } from "../../utilities/block.js";
 import { render } from "../../utilities/render.js";
 import { compile } from "../../utilities/templator.js";
