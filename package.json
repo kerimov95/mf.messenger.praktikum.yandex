@@ -8,10 +8,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-<<<<<<< HEAD
-=======
     "test": "echo \"Error: no test specified\" && exit 1",
->>>>>>> main
     "start": "tsc"
   },
   "repository": {
