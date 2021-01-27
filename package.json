@@ -8,7 +8,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "start": "tsc && node index.js"
+    "start": "tsc"
   },
   "repository": {
     "type": "git",
