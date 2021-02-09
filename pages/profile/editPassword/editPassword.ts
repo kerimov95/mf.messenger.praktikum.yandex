@@ -1,5 +1,5 @@
-import { Block } from "../../../utilities/block.js";
-import { render } from "../../../utilities/render.js";
+import { Block } from "../../../modules/block.js";
+import { render } from "../../../modules/render.js";
 import { compile } from "../../../utilities/templator.js";
 import { template } from './editPassword.template.js'
 import { AvatarComponent } from '../../../components/avatar/avatar.js'

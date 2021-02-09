@@ -1,4 +1,4 @@
-import { Block } from "../../utilities/block.js";
+import { Block } from "../../modules/block.js";
 import { compile } from "../../utilities/templator.js";
 import { template } from './input.template.js'
 

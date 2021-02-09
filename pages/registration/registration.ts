@@ -1,7 +1,7 @@
 import { ButtonComponent } from "../../components/button/button.js";
 import { InputComponent } from "../../components/input/input.js";
-import { Block } from "../../utilities/block.js";
-import { render } from "../../utilities/render.js";
+import { Block } from "../../modules/block.js";
+import { render } from "../../modules/render.js";
 import { compile } from "../../utilities/templator.js";
 import { template } from "./registration.template.js";
 

@@ -1,7 +1,19 @@
+import { isEqual } from '../utilities/utility.js';
 import { EventBus } from './event-bus.js'
-import { Event, Meta } from './interfaces/block'
 
-export abstract class Block {
+export interface Event {
+    INIT: string;
+    FLOW_CDM: string;
+    FLOW_CDU: string;
+    FLOW_RENDER: string;
+}
+
+export interface Meta {
+    tagName: string;
+    props: unknown;
+}
+
+export abstract class Block<T = any> {
 
     private static EVENTS: Event = {
         INIT: "init",
@@ -13,7 +25,7 @@ export abstract class Block {
     private _element: HTMLElement;
     private _meta: Meta;
     private eventBus: Function
-    public props: any;
+    public props: T;
 
     constructor(tagName: string = "div", props: any) {
 
@@ -63,10 +75,10 @@ export abstract class Block {
     }
 
     public componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if (oldProps != newProps)
-            return true;
-        else
+        if (isEqual(oldProps, newProps))
             return false;
+        else
+            return true;
     }
 
     public setProps = (nextProps: any): void => {

@@ -1,11 +1,11 @@
 import { backButtonComponent } from "../../components/backButton/backButton.js";
-import { Block } from "../../utilities/block.js";
-import { render } from "../../utilities/render.js";
+import { Block } from "../../modules/block.js";
+import { render } from "../../modules/render.js";
 import { compile } from "../../utilities/templator.js";
 import { template } from "./profile.template.js";
 import { AvatarComponent } from "../../components/avatar/avatar.js"
 import { ItemInputComponent } from "../../components/itemInput/itemInput.js";
-import { getProfile, IProfile } from "../../restApi/profile.service.js";
+import { getProfile, IProfile } from "../../api/profile.service.js";
 import { ButtonComponent } from "../../components/button/button.js";
 import { ItemButtonComponent } from "../../components/itemButton/itemButton.js";
 

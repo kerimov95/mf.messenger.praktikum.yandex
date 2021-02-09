@@ -1,7 +1,6 @@
 import { ButtonComponent } from "../../components/button/button.js";
 import { InputComponent } from "../../components/input/input.js";
-import { Block } from "../../utilities/block.js";
-import { render } from "../../utilities/render.js";
+import { Block } from "../../modules/block.js";
 import { compile } from "../../utilities/templator.js";
 import { template } from './login.template.js'
 
@@ -30,7 +29,7 @@ export class LoginPage extends Block {
         })
     }
 
-    render() {
+    render(): string {
         return compile(template, {
             title: this.props.title,
             login: this.props.login.render(),
@@ -39,8 +38,3 @@ export class LoginPage extends Block {
         })
     }
 }
-
-let loginPage = new LoginPage();
-
-render('.root', loginPage)
-
