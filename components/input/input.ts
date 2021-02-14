@@ -1,7 +1,7 @@
 import { Block } from "../../modules/block.js";
 import { compile } from "../../utilities/templator.js";
 import { template } from './input.template.js';
-import { ValidateTextInput, IValidateInput, visualizationOfvalidation } from '../../utilities/Validate.js'
+import { ValidateTextInput, IValidateInput, visualizationOfvalidation } from '../../utilities/validate.js'
 
 export interface Iinput {
     id: string;

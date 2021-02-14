@@ -5,7 +5,7 @@ import { AvatarComponent } from '../../../components/avatar/avatar.js'
 import { backButtonComponent } from '../../../components/backButton/backButton.js'
 import { ItemInputComponent } from '../../../components/itemInput/itemInput.js'
 import { ButtonComponent } from '../../../components/button/button.js'
-import { ValidateForm } from "../../../utilities/Validate.js";
+import { ValidateForm } from "../../../utilities/validate.js";
 import { Router } from "../../../modules/router/router.js";
 import { ProfileApi, IPassword } from "../../../api/profile-api.js";
 
