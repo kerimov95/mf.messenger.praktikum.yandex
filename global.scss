@@ -1,17 +1,27 @@
+$primary-color: #5dd862;
+$danger-color: #dc3545;
+$white-color: white;
+$silver-color: silver;
+$grey-color: grey;
+
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+@import "./pages/login/login";
+@import "./pages/chat/chat";
+@import "./pages/profile/profile";
+@import "./pages/registration/registration";
 
 .form-control {
     margin: 10px 0;
     display: block;
     outline: none;
     border: 0;
-    border-bottom: 1px solid #5dd862;
+    border-bottom: 1px solid $primary-color;
     font-size: 17px;
     width: 100%;
 }
 
 .form-label {
-    color: silver;
+    color: $silver-color;
 }
 
 .btn {
@@ -23,19 +33,25 @@
 
 .btn:active {
     background: rgba(0, 0, 0, 0.1);
-    color: white;
+    color: $white-color;
 }
 
 .btn-success {
-    background: #5dd862;
+    background: $primary-color;
     border-radius: 10px;
-    color: white;
+    color: $white-color;
+}
+
+.btn-danger {
+    background: $danger-color;
+    border-radius: 10px;
+    color: $white-color;
 }
 
 .btn-link {
     background: none;
     border-radius: 10px;
-    color: #5dd862;
+    color: $primary-color;
     outline: none;
     border: 0;
 }
@@ -45,25 +61,25 @@
     width: 30px;
     border-radius: 30px;
     border: 0;
-    color: white;
-    background-color: #5dd862;
+    color: $white-color;
+    background-color: $primary-color;
     outline: none;
 }
 
 .icon-button:active {
     background: rgba(0, 0, 0, 0.1);
-    color: white;
+    color: $white-color;
 }
 
 .badge {
     display: inline-block;
     padding: 0.35em 0.65em;
     line-height: 1;
-    color: #fff;
+    color: $white-color;
     text-align: center;
     white-space: nowrap;
     vertical-align: baseline;
-    background: #5dd862;
+    background: $primary-color;
 }
 
 .rounded-pill {
@@ -341,13 +357,13 @@ body {
 }
 
 .text-success {
-    color: #5dd862;
+    color: $primary-color;
 }
 
 .text-danger {
-    color: #dc3545;
+    color: $danger-color;
 }
 
 .invalid {
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid $danger-color;
 }

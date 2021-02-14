@@ -1,20 +1,13 @@
-import { Block } from "../../modules/block.js";
 import { compile } from "../../utilities/templator.js";
+import { InputComponent, Iinput } from "../input/input.js";
 import { template } from "./itemInput.template.js";
 
-export interface IItemInput {
-    type?: string;
-    value?: string;
-    id?: string;
-    label?: string;
-    disabled?: string;
-    autocomplete?: boolean;
-}
 
-export class ItemInputComponent extends Block {
-    constructor(props: IItemInput) {
-        super('div', props);
+export class ItemInputComponent extends InputComponent {
+    constructor(props: Iinput) {
+        super(props);
     }
+
 
     render(): string {
         return compile(template, this.props)

@@ -1,7 +1,7 @@
 import { Block } from "../block.js";
 import { render } from '../render.js'
 
-interface IBlock {
+export interface IBlock {
     new(): Block;
 }
 
@@ -14,7 +14,8 @@ class Route {
 
     constructor(pathname: string, view: IBlock, props: any) {
         this._pathname = pathname;
-        this._blockClass = view;
+        if (view)
+            this._blockClass = view;
         this._props = props;
     }
 
@@ -25,17 +26,17 @@ class Route {
         }
     }
 
-    leave() {
+    public leave() {
         if (this._block) {
             this._block.hide();
         }
     }
 
-    match(pathname: string): boolean {
+    public match(pathname: string): boolean {
         return pathname === this._pathname;
     }
 
-    render(): void {
+    public render(): void {
         if (!this._block) {
             this._block = new this._blockClass();
             render(this._props.rootQuery, this._block);
@@ -53,7 +54,7 @@ class Router {
     private _currentRoute: Route | null;
     private _rootQuery: string;
 
-    constructor(rootQuery: string) {
+    constructor(rootQuery: string = "") {
         if ((Router as any).__instance) {
             return (Router as any).__instance;
         }
@@ -66,14 +67,14 @@ class Router {
         (Router as any).__instance = this;
     }
 
-    use(pathname: string, block: IBlock): any {
+    public use(pathname: string, block: IBlock): any {
         const route = new Route(pathname, block, { rootQuery: this._rootQuery });
         this.routes.push(route);
 
         return this;
     }
 
-    start() {
+    public start() {
         window.onpopstate = (event: any) => {
             this._onRoute(event.currentTarget.location.pathname);
         };
@@ -81,7 +82,7 @@ class Router {
         this._onRoute(window.location.pathname);
     }
 
-    _onRoute(pathname: string) {
+    private _onRoute(pathname: string) {
         const route = this.getRoute(pathname);
 
         if (route) {
@@ -93,20 +94,20 @@ class Router {
         }
     }
 
-    go(pathname: string) {
+    public go(pathname: string) {
         this.history.pushState({}, "", pathname);
         this._onRoute(pathname);
     }
 
-    back() {
+    public back() {
         this.history.back()
     }
 
-    forward() {
+    public forward() {
         this.history.forward()
     }
 
-    getRoute(pathname: string): Route | undefined {
+    private getRoute(pathname: string): Route | undefined {
         const route = this.routes.find(route => route.match(pathname))
         if (route)
             return route;

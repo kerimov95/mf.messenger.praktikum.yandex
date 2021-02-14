@@ -8,11 +8,11 @@ enum METHODS {
 };
 
 interface Options {
-    queryParam: any;
-    body: any;
-    headers: any;
-    timeout: number;
-    method: string;
+    queryParam?: any;
+    body?: any;
+    headers?: { key: string, value: string }[];
+    timeout?: number;
+    method?: string;
 }
 
 export default class HTTP {
@@ -23,20 +23,26 @@ export default class HTTP {
         this.url = url;
     }
 
-    get = (url: string, options: Options) => {
-        if (options.queryParam)
+    get = (url: string, options?: Options): Promise<XMLHttpRequest> => {
+        if (options?.queryParam)
             url = `${url}?${queryString(options.queryParam)}`
-        return this.request(`${this.url}${url}`, { ...options, method: METHODS.GET }, options.timeout);
+        return this.request(`${this.url}${url}`, { ...options, method: METHODS.GET }, options?.timeout);
     };
 
-    post = (url: string, options: Options) => {
-        if (options.queryParam)
+    post = (url: string, options?: Options): Promise<XMLHttpRequest> => {
+        if (options?.queryParam)
             url = `${url}?${queryString(options.queryParam)}`
-        return this.request(`${this.url}${url}`, { ...options, method: METHODS.POST }, options.timeout);
+        return this.request(`${this.url}${url}`, { ...options, method: METHODS.POST }, options?.timeout);
+    };
+
+    put = (url: string, options?: Options): Promise<XMLHttpRequest> => {
+        if (options?.queryParam)
+            url = `${url}?${queryString(options.queryParam)}`
+        return this.request(`${this.url}${url}`, { ...options, method: METHODS.PUT }, options?.timeout);
     };
 
 
-    request = (url: string, options: Options, timeout = 5000) => {
+    request = (url: string, options: Options, timeout = 5000): Promise<XMLHttpRequest> => {
 
         const { method, body } = options;
 
@@ -44,12 +50,19 @@ export default class HTTP {
             const xhr = new XMLHttpRequest();
 
             xhr.timeout = timeout;
+            xhr.withCredentials = true;
 
-            xhr.open(method, url);
+            xhr.open(method as string, url);
 
             xhr.onload = function () {
                 resolve(xhr);
             };
+
+            if (options.headers && options.headers.length > 0) {
+                options.headers.forEach(header => {
+                    xhr.setRequestHeader(header.key, header.value)
+                })
+            }
 
             xhr.onabort = reject;
             xhr.onerror = reject;
@@ -57,7 +70,8 @@ export default class HTTP {
 
             if (method === METHODS.GET || !body) {
                 xhr.send();
-            } else {
+            }
+            else {
                 xhr.send(body);
             }
         });

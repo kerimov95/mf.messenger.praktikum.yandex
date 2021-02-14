@@ -43,7 +43,7 @@ function queryString(data: PlainObject) {
     return getParams(data).map(arr => arr.join('=')).join('&');
 }
 
-function isEqual(lhs: PlainObject, rhs: PlainObject) {
+function isEqual(lhs: any, rhs: any) {
 
     if (Object.keys(lhs).length !== Object.keys(rhs).length) {
         return false;
@@ -67,4 +67,4 @@ function isEqual(lhs: PlainObject, rhs: PlainObject) {
 }
 
 
-export { queryString, isPlainObject, isArray, isEqual }
+export { queryString, isPlainObject, isArray, isEqual, isArrayOrObject }
