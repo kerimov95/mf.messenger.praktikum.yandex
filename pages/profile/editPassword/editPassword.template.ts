@@ -1,5 +1,5 @@
 export const template = `
-<div class="container-fluid d-flex flex-col">
+<div class="container-fluid d-flex flex-col profile-page">
             <div class="p-3">
                 {{{backButton}}}
             </div>
@@ -8,7 +8,7 @@ export const template = `
 
                     {{{avatar}}}
                     
-                    <form id="profileForm" class="w-100">
+                    <form id="passwordForm" class="w-100">
                         {{{oldPassword}}}
                         {{{newPassword}}}
                         {{{confirmNewPassword}}}

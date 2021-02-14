@@ -1,62 +1,107 @@
+import { IProfile, ProfileApi } from "../../api/profile-api.js";
 import { ButtonComponent } from "../../components/button/button.js";
 import { InputComponent } from "../../components/input/input.js";
-import { Block } from "../../utilities/block.js";
-import { render } from "../../utilities/render.js";
+import { Block } from "../../modules/block.js";
+import { Router } from "../../modules/router/router.js";
 import { compile } from "../../utilities/templator.js";
-import { template } from "./registration.template.js";
+import { typeInput, ValidateForm } from "../../utilities/Validate.js";
+import { template } from './registration.template.js';
 
 export class RegistrationPage extends Block {
+
+    private profieApi = new ProfileApi();
+    private router = new Router();
+
     constructor() {
         super('main', {
             title: 'Регистрация',
             email: new InputComponent({
-                text: 'Почта',
+                label: 'Почта',
+                id: 'email',
                 name: 'email',
                 type: 'email',
-                autocomplete: false
+                autocomplete: false,
+                validate: { requred: true, type: typeInput.email }
             }),
             login: new InputComponent({
-                text: 'Логин',
+                label: 'Логин',
+                id: 'login',
                 name: 'login',
                 type: 'text',
-                autocomplete: false
+                autocomplete: false,
+                validate: { requred: true }
             }),
             first_name: new InputComponent({
-                text: 'Имя',
+                label: 'Имя',
+                id: 'first_name',
                 name: 'first_name',
                 type: 'text',
-                autocomplete: false
+                autocomplete: false,
+                validate: { requred: true }
             }),
             second_name: new InputComponent({
-                text: 'Фамилия',
+                label: 'Фамилия',
+                id: 'second_name',
                 name: 'second_name',
                 type: 'text',
-                autocomplete: false
+                autocomplete: false,
+                validate: { requred: true }
             }),
             phone: new InputComponent({
-                text: 'Телефон',
+                label: 'Телефон',
+                id: 'phone',
                 name: 'phone',
                 type: 'text',
-                autocomplete: false
+                autocomplete: false,
+                validate: { requred: true, type: typeInput.phone }
             }),
             password: new InputComponent({
-                text: 'Пароль',
+                label: 'Пароль',
+                id: 'password',
                 name: 'password',
                 type: 'password',
-                autocomplete: true
+                autocomplete: true,
+                validate: { requred: true }
             }),
             password_confirm: new InputComponent({
-                text: 'Пароль (еще раз)',
+                label: 'Пароль (еще раз)',
+                id: 'password_confirm',
                 name: 'password_confirm',
                 type: 'password',
-                autocomplete: true
+                autocomplete: true,
+                validate: { requred: true }
             }),
             button: new ButtonComponent({
+                id: 'authBtn',
                 className: 'w-75 btn btn-success',
                 text: 'Авторизоваться',
-                onclick: 'consoleOutput(userForm)'
+                onClick: async () => {
+                    const userForm = document.getElementById('userForm') as HTMLFormElement;
+                    const validForm = ValidateForm<IProfile>(userForm);
+                    if (validForm) {
+                        await this.profieApi.Signup(validForm)
+                            .then(result => {
+                                switch (result.code) {
+                                    case 200:
+                                        this.router.go('/chat')
+                                        break;
+                                    case 400:
+                                        alert('Ползователь уже существует')
+                                        break;
+                                    default:
+                                        alert('Error')
+                                        break;
+                                }
+                            })
+                    }
+                }
             })
-        })
+        });
+
+    }
+
+    componentDidMount() {
+
     }
 
     render() {
@@ -73,7 +118,3 @@ export class RegistrationPage extends Block {
         })
     }
 }
-
-let registrationPage = new RegistrationPage();
-
-render('.root', registrationPage)

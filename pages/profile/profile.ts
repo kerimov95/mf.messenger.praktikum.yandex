@@ -1,41 +1,42 @@
 import { backButtonComponent } from "../../components/backButton/backButton.js";
-import { Block } from "../../utilities/block.js";
-import { render } from "../../utilities/render.js";
+import { Block } from "../../modules/block.js";
 import { compile } from "../../utilities/templator.js";
 import { template } from "./profile.template.js";
 import { AvatarComponent } from "../../components/avatar/avatar.js"
 import { ItemInputComponent } from "../../components/itemInput/itemInput.js";
-import { getProfile, IProfile } from "../../restApi/profile.service.js";
 import { ButtonComponent } from "../../components/button/button.js";
 import { ItemButtonComponent } from "../../components/itemButton/itemButton.js";
+import { IProfile, ProfileApi } from "../../api/profile-api.js";
+import { typeInput, ValidateForm } from "../../utilities/Validate.js";
+import { Router } from "../../modules/router/router.js";
 
 
 export interface IProfilePage {
     profile?: IProfile;
+    backButton?: backButtonComponent;
     isEdit?: boolean;
 }
 
-export class ProfilePage extends Block {
+export class ProfilePage extends Block<IProfilePage> {
 
-    constructor(props?: IProfilePage) {
+    private router = new Router();
+    private profileApi: ProfileApi;
 
+    constructor() {
         super('main', {
-
             backButton: new backButtonComponent({
                 link: '../chat'
             }),
-            avatar: new AvatarComponent({
-                id: 'avatar',
-                name: props?.profile?.display_name
-            }),
+            profile: {},
+            isEdit: false
+        });
+        this.profileApi = new ProfileApi();
+    }
 
-            email: props?.profile?.email,
-            login: props?.profile?.login,
-            first_name: props?.profile?.first_name,
-            second_name: props?.profile?.second_name,
-            display_name: props?.profile?.display_name,
-            phone: props?.profile?.phone,
-            isEdit: props?.isEdit
+    componentDidMount() {
+        const profile = new ProfileApi()
+        profile.GetUserInfo().then(profile => {
+            this.props.profile = profile
         })
     }
 
@@ -43,54 +44,64 @@ export class ProfilePage extends Block {
         return compile(template, {
             backButton: this.props?.backButton?.render(),
 
-            avatar: this.props?.avatar?.render(),
+            avatar: new AvatarComponent({
+                id: 'avatar',
+                name: this.props?.profile?.display_name,
+                imageUrl: this.props?.profile?.avatar
+            }).render(),
 
             email: new ItemInputComponent({
                 label: 'Почта',
                 id: 'email',
                 type: 'email',
-                value: this.props?.email,
-                disabled: this.props?.isEdit ? 'none' : 'disabled'
+                value: this.props?.profile?.email,
+                disabled: !this.props.isEdit,
+                validate: { type: typeInput.email, requred: true }
             }).render(),
 
             login: new ItemInputComponent({
                 label: 'Логин',
                 id: 'login',
                 type: 'text',
-                value: this.props?.login,
-                disabled: this.props?.isEdit ? 'none' : 'disabled'
+                value: this.props?.profile?.login,
+                disabled: !this.props.isEdit,
+                validate: { requred: true }
             }).render(),
 
             first_name: new ItemInputComponent({
                 label: 'Имя',
                 id: 'first_name',
                 type: 'text',
-                value: this.props?.first_name,
-                disabled: this.props?.isEdit ? 'none' : 'disabled'
+                value: this.props?.profile?.first_name,
+                disabled: !this.props.isEdit,
+                validate: { requred: true }
             }).render(),
 
             second_name: new ItemInputComponent({
                 label: 'Фамилия',
                 id: 'second_name',
                 type: 'text',
-                value: this.props?.second_name,
-                disabled: this.props?.isEdit ? 'none' : 'disabled'
+                value: this.props?.profile?.second_name,
+                disabled: !this.props.isEdit,
+                validate: { requred: true }
             }).render(),
 
             display_name: new ItemInputComponent({
                 label: 'Имя в чате',
                 id: 'display_name',
                 type: 'text',
-                value: this.props?.display_name,
-                disabled: this.props?.isEdit ? 'none' : 'disabled'
+                value: this.props?.profile?.display_name,
+                disabled: !this.props.isEdit,
+                validate: { requred: true }
             }).render(),
 
             phone: new ItemInputComponent({
                 label: 'Телефон',
                 id: 'phone',
                 type: 'text',
-                value: this.props?.phone,
-                disabled: this.props?.isEdit ? 'none' : 'disabled'
+                value: this.props?.profile?.phone,
+                disabled: !this.props.isEdit,
+                validate: { type: typeInput.phone, requred: true }
             }).render(),
 
             saveProfile: new ButtonComponent({
@@ -98,44 +109,53 @@ export class ProfilePage extends Block {
                 className: 'mt-3 btn btn-success w-50',
                 text: 'Сохранить',
                 id: 'saveButton',
-                onclick: 'consoleOutput(profileForm); editProfile(false)'
+                onClick: () => {
+                    const form = document.getElementById('profileForm') as HTMLFormElement
+                    const profile = ValidateForm<IProfile>(form)
+                    if (profile)
+                        this.profileApi.ChangeUserProfile(profile).then(() => {
+                            this.setProps({
+                                isEdit: false
+                            });
+                        })
+                }
             }).render(),
 
             editProfile: new ItemButtonComponent({
+                id: 'editBtn',
                 display: this.props?.isEdit ? 'none' : 'flex',
                 text: 'Изменить данные',
-                onclick: 'editProfile(true)'
+                onClick: () => {
+                    this.setProps({
+                        isEdit: true
+                    })
+                }
             }).render(),
 
             editPassword: new ItemButtonComponent({
+                id: 'editPass',
                 display: this.props?.isEdit ? 'none' : 'flex',
                 text: 'Изменить пароль',
-                onclick: 'location.href="./editPassword"'
+                onClick: () => {
+                    this.router.go('/editpassword')
+                }
             }).render(),
 
             ExitButton: new ItemButtonComponent({
+                id: 'ExitBtn',
                 display: this.props?.isEdit ? 'none' : 'flex',
                 text: 'Выйти',
-                className: 'text-danger'
+                className: 'text-danger',
+                onClick: async () => {
+                    await this.profileApi.Logout()
+                        .then(status => {
+                            if (status.code === 200) {
+                                this.router.go('/')
+                            }
+                        });
+                }
 
             }).render()
         })
     }
-}
-
-let profile: ProfilePage;
-
-getProfile().then(pr => {
-    profile = new ProfilePage({
-        profile: pr,
-        isEdit: false
-    });
-    render('.root', profile)
-});
-
-(window as any).editProfile = (value: boolean) => {
-    if (profile)
-        profile.setProps({
-            isEdit: value
-        })
 }

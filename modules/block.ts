@@ -1,7 +1,19 @@
+import { isArrayOrObject, isEqual } from '../utilities/utility.js';
 import { EventBus } from './event-bus.js'
-import { Event, Meta } from './interfaces/block'
 
-export abstract class Block {
+export interface Event {
+    INIT: string;
+    FLOW_CDM: string;
+    FLOW_CDU: string;
+    FLOW_RENDER: string;
+}
+
+export interface Meta {
+    tagName: string;
+    props: unknown;
+}
+
+export abstract class Block<T = any> {
 
     private static EVENTS: Event = {
         INIT: "init",
@@ -13,7 +25,7 @@ export abstract class Block {
     private _element: HTMLElement;
     private _meta: Meta;
     private eventBus: Function
-    public props: any;
+    public props: T;
 
     constructor(tagName: string = "div", props: any) {
 
@@ -57,22 +69,34 @@ export abstract class Block {
     }
 
     private _componentDidUpdate(oldProps: any, newProps: any): void {
+
         const response = this.componentDidUpdate(oldProps, newProps);
-        if (response)
+
+        if (response) {
             this.eventBus().emit(Block.EVENTS.FLOW_CDM)
+        }
     }
 
     public componentDidUpdate(oldProps: any, newProps: any): boolean {
-        if (oldProps != newProps)
-            return true;
-        else
-            return false;
+
+        if (isArrayOrObject(oldProps) && isArrayOrObject(newProps)) {
+            if (isEqual(oldProps, newProps))
+                return false;
+            else
+                return true;
+        }
+        else {
+            if (oldProps !== newProps)
+                return true;
+            else
+                return false;
+        }
+
     }
 
-    public setProps = (nextProps: any): void => {
+    public setProps = (nextProps: T): void => {
         if (!nextProps)
             return;
-
         Object.assign(this.props, nextProps);
     };
 
@@ -93,7 +117,7 @@ export abstract class Block {
         return this.element;
     }
 
-    private _makePropsProxy(props: any): any {
+    private _makePropsProxy(props: T): any {
         let proxyProps = new Proxy(props, {
             set: (target: any, prop: any, value: any) => {
                 if (prop.indexOf('_') === 0)

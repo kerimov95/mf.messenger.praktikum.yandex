@@ -1,13 +1,20 @@
-import { Block } from "../../../utilities/block.js";
-import { render } from "../../../utilities/render.js";
+import { Block } from "../../../modules/block.js";
 import { compile } from "../../../utilities/templator.js";
 import { template } from './editPassword.template.js'
 import { AvatarComponent } from '../../../components/avatar/avatar.js'
 import { backButtonComponent } from '../../../components/backButton/backButton.js'
 import { ItemInputComponent } from '../../../components/itemInput/itemInput.js'
 import { ButtonComponent } from '../../../components/button/button.js'
+import { ValidateForm } from "../../../utilities/Validate.js";
+import { Router } from "../../../modules/router/router.js";
+import { ProfileApi, IPassword } from "../../../api/profile-api.js";
+
 
 export class EditPasswordPage extends Block {
+
+    private router = new Router();
+    private profileApi = new ProfileApi();
+
     constructor() {
         super('main', {
             avatar: new AvatarComponent({
@@ -16,7 +23,7 @@ export class EditPasswordPage extends Block {
             }),
 
             backButton: new backButtonComponent({
-                link: '../'
+                link: '/profile'
             }),
 
             oldPassword: new ItemInputComponent({
@@ -24,6 +31,7 @@ export class EditPasswordPage extends Block {
                 id: 'oldPassword',
                 label: 'Старый пароль',
                 autocomplete: true,
+                validate: { requred: true }
             }),
 
             newPassword: new ItemInputComponent({
@@ -31,6 +39,7 @@ export class EditPasswordPage extends Block {
                 id: 'newPassword',
                 label: ' Новый пароль',
                 autocomplete: true,
+                validate: { requred: true }
             }),
 
             confirmNewPassword:
@@ -39,12 +48,34 @@ export class EditPasswordPage extends Block {
                     id: 'confirmNewPassword',
                     label: 'Повторите новый пароль',
                     autocomplete: true,
+                    validate: { requred: true }
                 }),
 
             saveButton: new ButtonComponent({
-                onclick: 'consoleOutput(profileForm)',
+                id: 'saveBtn',
                 className: 'mt-3 btn btn-success w-50',
-                text: 'Сохранить'
+                text: 'Сохранить',
+                onClick: async () => {
+                    const form = document.getElementById('passwordForm') as HTMLFormElement;
+                    const validForm = ValidateForm<IPassword>(form);
+
+                    if (validForm) {
+                        const status = await this.profileApi.ChangeUserPassword(validForm)
+
+                        switch (status.code) {
+                            case 200:
+                                this.router.back();
+                                break;
+                            case 400:
+                                alert('Неверно указан старый пароль')
+                                break;
+                            default:
+                                alert('Error')
+                                break;
+                        }
+
+                    }
+                }
             })
         })
     }
@@ -60,8 +91,3 @@ export class EditPasswordPage extends Block {
         })
     }
 }
-
-let editPasswordPage = new EditPasswordPage()
-
-render('.root', editPasswordPage)
-

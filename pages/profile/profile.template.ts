@@ -1,6 +1,6 @@
 export const template = `
-<div id="root" class="container-fluid d-flex flex-col">
-{{{backButton}}}
+<div id="root" class="container-fluid d-flex flex-col profile-page">
+    {{{backButton}}}
 <div class="flex-fill p-1">
     <div class="profile-form">
         {{{avatar}}}
