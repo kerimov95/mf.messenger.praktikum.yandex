@@ -1,4 +1,3 @@
-
 export interface IValidateInput {
     maxLength?: number;
     minLength?: number;

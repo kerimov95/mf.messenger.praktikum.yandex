@@ -4,7 +4,7 @@ import { InputComponent } from "../../components/input/input.js";
 import { Block } from "../../modules/block.js";
 import { Router } from "../../modules/router/router.js";
 import { compile } from "../../utilities/templator.js";
-import { typeInput, ValidateForm } from "../../utilities/Validate.js";
+import { typeInput, ValidateForm } from "../../utilities/validate.js";
 import { template } from './registration.template.js';
 
 export class RegistrationPage extends Block {

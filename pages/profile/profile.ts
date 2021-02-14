@@ -7,7 +7,7 @@ import { ItemInputComponent } from "../../components/itemInput/itemInput.js";
 import { ButtonComponent } from "../../components/button/button.js";
 import { ItemButtonComponent } from "../../components/itemButton/itemButton.js";
 import { IProfile, ProfileApi } from "../../api/profile-api.js";
-import { typeInput, ValidateForm } from "../../utilities/Validate.js";
+import { typeInput, ValidateForm } from "../../utilities/validate.js";
 import { Router } from "../../modules/router/router.js";
 
 
