@@ -9,6 +9,11 @@
     "strictNullChecks": true,
     "outDir": "./static/www",
     "experimentalDecorators": true,
+    "paths": {
+      "handlebars": [
+        "./node_modules/handlebars/dist/handlebars.js"
+      ]
+    },
     "lib": [
       "es2017",
       "dom"

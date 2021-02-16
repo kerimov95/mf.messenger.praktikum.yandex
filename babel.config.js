@@ -4,12 +4,16 @@ module.exports = api => {
 
     const presets = [
         "@babel/preset-typescript",
-        "@babel/preset-env"
+        [
+            "@babel/preset-env",
+            {
+                targets: {
+                    node: 'current'
+                }
+            }
+        ]
     ];
-
-    const plugins = [
-        "@babel/plugin-proposal-class-properties"
-    ]
+    const plugins = ["@babel/plugin-proposal-class-properties"];
 
     return { presets, plugins };
 };
