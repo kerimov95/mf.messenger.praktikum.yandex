@@ -16,4 +16,4 @@ export const template = `
         <a href="/">Войти</a>
     </div>
 </div>
-`
+`;

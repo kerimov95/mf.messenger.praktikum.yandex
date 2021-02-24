@@ -1,6 +1,7 @@
-import HTTP from "../modules/http/index";
+import HTTP from '../modules/http/index';
 
 export interface IProfile {
+    /* eslint-disable camelcase */
     id: number;
     first_name: string;
     second_name: string;
@@ -29,71 +30,76 @@ export interface IResponceStatus {
     code: number;
 }
 
-export class ProfileApi {
+type profile = Promise<IProfile>;
+type status = Promise<IResponceStatus>
+type url = Promise<{ statusCode: number, url: string }>
 
+export class ProfileApi {
     private http: HTTP;
 
     constructor() {
-        this.http = new HTTP("https://ya-praktikum.tech/api/v2/")
+      this.http = new HTTP('https://ya-praktikum.tech/api/v2/');
     }
 
-    public async Signup(profile: IProfile): Promise<IResponceStatus> {
-        return await this.http.post('auth/signup', {
-            headers: [{ key: 'Content-Type', value: 'application/json' }], body: profile
-        })
-            .then(res => {
-                return { code: res.status }
-            })
+    public async signup(profile: IProfile): Promise<IResponceStatus> {
+      const headers = [{key: 'Content-Type', value: 'application/json'}];
+      const options = {headers: headers, body: profile};
+      return await this.http.post('auth/signup', options)
+          .then((res) => {
+            return {code: res.status};
+          });
     }
 
-    public async SignIn(user: IUser): Promise<IResponceStatus> {
-
-        return await this.http.post('auth/signin', {
-            headers: [{ key: 'Content-Type', value: 'application/json' }], body: user
-        })
-            .then(res => {
-                return { code: res.status }
-            })
+    public async signIn(user: IUser): Promise<IResponceStatus> {
+      const headers = [{key: 'Content-Type', value: 'application/json'}];
+      const options = {headers: headers, body: user};
+      return await this.http.post('auth/signin', options)
+          .then((res) => {
+            return {code: res.status};
+          });
     }
 
-    public async Logout(): Promise<IResponceStatus> {
-        return await this.http.post('auth/logout')
-            .then(res => {
-                return { code: res.status }
-            })
+    public async logout(): Promise<IResponceStatus> {
+      return await this.http.post('auth/logout')
+          .then((res) => {
+            return {code: res.status};
+          });
     }
 
 
-    public async GetUserInfo(): Promise<IProfile> {
-        return await this.http.get('auth/user').then(
-            res => {
-                return JSON.parse(res.response);
-            }
-        )
+    public async getUserInfo(): Promise<IProfile> {
+      return await this.http.get('auth/user').then(
+          (res) => {
+            return JSON.parse(res.response);
+          },
+      );
     }
 
-    public async ChangeUserProfile(profile: IProfile): Promise<IProfile> {
-        return await this.http.put('user/profile', { headers: [{ key: 'Content-Type', value: 'application/json' }], body: profile })
-            .then(res => {
-                return JSON.parse(res.response)
-            })
+    public async changeProfile(profile: IProfile): profile {
+      const headers = [{key: 'Content-Type', value: 'application/json'}];
+      const options = {headers: headers, body: profile};
+      return await this.http.put('user/profile', options)
+          .then((res) => {
+            return JSON.parse(res.response);
+          });
     }
 
-    public async ChangeUserPassword(password: IPassword): Promise<IResponceStatus> {
-        return await this.http.put('user/password', { headers: [{ key: 'Content-Type', value: 'application/json' }], body: password })
-            .then(res => {
-                return { code: res.status }
-            })
+    public async changePassword(password: IPassword): status {
+      const headers = [{key: 'Content-Type', value: 'application/json'}];
+      const options = {headers: headers, body: password};
+      return await this.http.put('user/password', options)
+          .then((res) => {
+            return {code: res.status};
+          });
     }
 
-    public async ChangeUserAvatar(avatar: any): Promise<{ statusCode: number, url: string }> {
-
-        return await this.http.put('user/profile/avatar', {
-            body: avatar
-        })
-            .then(res => {
-                return { statusCode: res.status, url: JSON.parse(res.response).avatar }
-            })
+    public async changeAvatar(avatar: any): url {
+      return await this.http.put('user/profile/avatar', {
+        body: avatar,
+      })
+          .then((res) => {
+            const url = JSON.parse(res.response).avatar;
+            return {statusCode: res.status, url};
+          });
     }
-
 }

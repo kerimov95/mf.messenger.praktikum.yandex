@@ -2,7 +2,7 @@
     "extension": [
         "ts"
     ],
-    "spec": "**/*.spec.ts",
+    "spec": "src/**/*.spec.ts",
     "require": [
         "./src/testConfig/babel-register.js",
         "./src/testConfig/browser.js"

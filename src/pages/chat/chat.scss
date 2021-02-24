@@ -1,43 +1,49 @@
+$primary-color: #5dd862;
+$danger-color: #dc3545;
+$white-color: white;
+$silver-color: silver;
+$grey-color: grey;
+
 .chat-page {
-    .search-input {
-        color: $grey-color;
-        border: 0;
-        background: rgba(0, 0, 0, 0.1);
-        outline: none;
-        border-radius: 15px;
-        height: 30px;
-        padding-left: 13px;
-    }
+  .search-input {
+    color: $grey-color;
+    border: 0;
+    background: rgba(0, 0, 0, 0.1);
+    outline: none;
+    border-radius: 15px;
+    height: 30px;
+    padding-left: 13px;
+  }
 
-    a {
-        color: $primary-color;
-    }
+  a {
+    color: $primary-color;
+  }
 
-    .item {
-        min-height: 60px;
-    }
+  .item {
+    min-height: 60px;
+  }
 
-    .item:hover {
-        background-color: rgba(0, 0, 0, 0.1);
-    }
+  .item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 
-    .avatar {
-        padding: 3px;
-        height: 50px;
-        width: 50px;
-        background-color: rgba(0, 0, 0, 0.1);
-        border-radius: 48px;
-    }
+  .avatar {
+    padding: 3px;
+    height: 50px;
+    width: 50px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 48px;
+  }
 
-    p {
-        margin: 0;
-    }
+  p {
+    margin: 0;
+  }
 
-    .title {
-        font-weight: bold;
-    }
+  .title {
+    font-weight: bold;
+  }
 
-    .message {
-        color: rgba(0, 0, 0, 0.4);
-    }
+  .message {
+    color: rgba(0, 0, 0, 0.4);
+  }
 }

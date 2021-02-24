@@ -3,4 +3,4 @@ export const template = `
     <h1 class="text-success">{{code}}</h1>
     <p>{{message}}</p>
 </div>    
-`
+`;

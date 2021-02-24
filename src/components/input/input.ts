@@ -1,7 +1,9 @@
-import { Block } from "../../modules/block";
-import { compile } from "../../utilities/templator";
-import { template } from './input.template';
-import { ValidateTextInput, IValidateInput, visualizationOfvalidation } from '../../utilities/validate'
+import {Block} from '../../modules/block';
+import {compile} from '../../utilities/templator';
+import {template} from './input.template';
+import {validateTextInput} from '../../utilities/validate';
+import {IValidateInput} from '../../utilities/validate';
+import {visualizationOfvalidation} from '../../utilities/validate';
 
 export interface Iinput {
     id: string;
@@ -18,45 +20,46 @@ export interface Iinput {
 }
 
 export class InputComponent extends Block<Iinput> {
-    constructor(props: Iinput) {
-        super('div', props)
-    }
+  constructor(props: Iinput) {
+    super('div', props);
+  }
 
-    componentDidMount() {
-        setTimeout(() => {
+  componentDidMount() {
+    setTimeout(() => {
+      const element = document.getElementById(this.props.id);
+      const input = element as HTMLInputElement;
 
-            const input = (document.getElementById(this.props.id) as HTMLInputElement)
+      if (this.props.disabled) {
+        const element = document.getElementById(this.props.id);
+        const input = element as HTMLInputElement;
+        if (input) {
+          input.disabled = true;
+        }
+      }
 
-            if (this.props.disabled) {
-                let input = document.getElementById(this.props.id) as HTMLInputElement
-                if (input) {
-                    input.disabled = true;
-                }
-            }
+      if (this.props?.validate) {
+        const message = validateTextInput(input.value, this.props.validate);
+        input.setCustomValidity(message);
+      }
 
-            if (this.props?.validate) {
-                const message = ValidateTextInput(input.value, this.props.validate);
-                input.setCustomValidity(message);
-            }
+      input.onblur = () => {
+        visualizationOfvalidation(input);
+      };
 
-            input.onblur = () => {
-                visualizationOfvalidation(input)
-            }
+      input.onfocus = () => {
+        visualizationOfvalidation(input, true);
+      };
 
-            input.onfocus = () => {
-                visualizationOfvalidation(input, true);
-            }
+      input?.addEventListener('input', () => {
+        if (this.props?.validate) {
+          const message = validateTextInput(input.value, this.props.validate);
+          input.setCustomValidity(message);
+        }
+      });
+    });
+  }
 
-            input?.addEventListener('input', () => {
-                if (this.props?.validate) {
-                    const message = ValidateTextInput(input.value, this.props.validate);
-                    input.setCustomValidity(message);
-                }
-            });
-        });
-    }
-
-    render(): string {
-        return compile(template, this.props)
-    }
+  render(): string {
+    return compile(template, this.props);
+  }
 }

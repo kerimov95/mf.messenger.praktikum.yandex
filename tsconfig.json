@@ -6,14 +6,10 @@
     "noUnusedParameters": true,
     "alwaysStrict": true,
     "sourceMap": true,
+    "declaration": true,
     "strictNullChecks": true,
-    "outDir": "./static/www",
+    "outDir": "./dist",
     "experimentalDecorators": true,
-    "paths": {
-      "handlebars": [
-        "./node_modules/handlebars/dist/handlebars.js"
-      ]
-    },
     "lib": [
       "es2017",
       "dom"

@@ -1,6 +1,7 @@
-import { queryString } from '../../utilities/utility'
+import {queryString} from '../../utilities/utility';
 
 export enum METHODS {
+    /* eslint-disable no-unused-vars */
     GET = 'GET',
     POST = 'POST',
     PUT = 'PUT',
@@ -15,75 +16,79 @@ export interface Options {
     method?: string;
 }
 
-export default class HTTP {
+type request = Promise<XMLHttpRequest>;
 
+export default class HTTP {
     private url: string;
 
     constructor(url: string) {
-        this.url = url;
+      this.url = url;
     }
 
-    public async get(url: string, options?: Options): Promise<XMLHttpRequest> {
-        if (options?.queryParam)
-            url = `${url}?${queryString(options.queryParam)}`;
-        return this.request(`${this.url}${url}`, { ...options, method: METHODS.GET }, options?.timeout);
+    public async get(url: string, options?: Options): request {
+      if (options?.queryParam) {
+        url = `${url}?${queryString(options.queryParam)}`;
+      }
+      const _options = {...options, method: METHODS.GET};
+      return this.request(`${this.url}${url}`, _options, options?.timeout);
     };
 
-    public async post(url: string, options?: Options): Promise<XMLHttpRequest> {
-        if (options?.queryParam)
-            url = `${url}?${queryString(options.queryParam)}`;
-        return this.request(`${this.url}${url}`, { ...options, method: METHODS.POST }, options?.timeout);
+    public async post(url: string, options?: Options): request {
+      if (options?.queryParam) {
+        url = `${url}?${queryString(options.queryParam)}`;
+      }
+      const _options = {...options, method: METHODS.POST};
+      return this.request(`${this.url}${url}`, _options, options?.timeout);
     };
 
-    public async put(url: string, options?: Options): Promise<XMLHttpRequest> {
-        if (options?.queryParam)
-            url = `${url}?${queryString(options.queryParam)}`;
-        return this.request(`${this.url}${url}`, { ...options, method: METHODS.PUT }, options?.timeout);
+    public async put(url: string, options?: Options): request {
+      if (options?.queryParam) {
+        url = `${url}?${queryString(options.queryParam)}`;
+      }
+      const _options = {...options, method: METHODS.PUT};
+      return this.request(`${this.url}${url}`, _options, options?.timeout);
     };
 
-    public async delete(url: string, options?: Options): Promise<XMLHttpRequest> {
-        if (options?.queryParam)
-            url = `${url}?${queryString(options.queryParam)}`;
-        return this.request(`${this.url}${url}`, { ...options, method: METHODS.DELETE }, options?.timeout);
+    public async delete(url: string, options?: Options): request {
+      if (options?.queryParam) {
+        url = `${url}?${queryString(options.queryParam)}`;
+      }
+      const _options = {...options, method: METHODS.DELETE};
+      return this.request(`${this.url}${url}`, _options, options?.timeout);
     };
 
+    public request(url: string, options: Options, timeout = 5000): request {
+      const {method, body} = options;
 
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
 
-    public request(url: string, options: Options, timeout = 5000): Promise<XMLHttpRequest> {
+        xhr.timeout = timeout;
+        xhr.withCredentials = true;
 
-        const { method, body } = options;
+        xhr.open(method as string, url);
 
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+          resolve(xhr);
+        };
 
-            xhr.timeout = timeout;
-            xhr.withCredentials = true;
+        if (options.headers && options.headers.length > 0) {
+          options.headers.forEach((header) => {
+            xhr.setRequestHeader(header.key, header.value);
+          });
+        }
 
-            xhr.open(method as string, url);
+        xhr.onabort = reject;
+        xhr.onerror = reject;
+        xhr.ontimeout = reject;
 
-            xhr.onload = function () {
-                resolve(xhr);
-            };
-
-            if (options.headers && options.headers.length > 0) {
-                options.headers.forEach(header => {
-                    xhr.setRequestHeader(header.key, header.value)
-                })
-            }
-
-            xhr.onabort = reject;
-            xhr.onerror = reject;
-            xhr.ontimeout = reject;
-
-            if (method === METHODS.GET || !body) {
-                xhr.send();
-            }
-            else if (body instanceof FormData) {
-                xhr.send(body);
-            }
-            else {
-                xhr.send(JSON.stringify(body));
-            }
-        });
+        if (method === METHODS.GET || !body) {
+          xhr.send();
+        } else if (body instanceof FormData) {
+          xhr.send(body);
+        } else {
+          xhr.send(JSON.stringify(body));
+        }
+      });
     };
 }

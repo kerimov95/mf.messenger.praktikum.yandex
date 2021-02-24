@@ -4,4 +4,4 @@ export const template = `
         <i class="fa fa-arrow-left"></i>
     </button>
 </div>
-`
+`;
