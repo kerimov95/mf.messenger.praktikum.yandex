@@ -13,11 +13,12 @@
     "test": "./node_modules/.bin/mocha",
     "lint:ts": "eslint src/**/*.ts",
     "lint:scss": "stylelint src/**/*.scss",
-    "lint": "npm-run-all --parallel lint:*"
+    "lint": "npm-run-all --parallel lint:*",
+    "check": "npm-run-all test lint"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm-run-all test lint"
+      "pre-commit": "npm-run-all check"
     }
   },
   "repository": {
