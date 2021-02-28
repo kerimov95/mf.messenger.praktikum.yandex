@@ -5,6 +5,7 @@ $danger-color: #dc3545;
 $white-color: white;
 $silver-color: silver;
 $grey-color: grey;
+$secondary-color : #6c757d;
 
 .form-control {
   margin: 10px 0;
@@ -13,7 +14,7 @@ $grey-color: grey;
   border: 0;
   border-bottom: 1px solid $primary-color;
   font-size: 17px;
-      width: 100%;
+  width: 100%;
 }
 
 .form-label {
@@ -22,31 +23,35 @@ $grey-color: grey;
 
 .btn {
   margin: 10px 0;
-  height: 40px;
+  height: 35px;
   border: 0;
+  border-radius: 10px;
   outline: none;
 }
 
 .btn:active {
   background: rgba(0, 0, 0, 0.1);
   color: $white-color;
+  border: 3px rgba(0, 0, 0, 0.1) solid;
 }
 
 .btn-success {
   background: $primary-color;
-  border-radius: 10px;
   color: $white-color;
 }
 
 .btn-danger {
   background: $danger-color;
-  border-radius: 10px;
+  color: $white-color;
+}
+
+.btn-secondary {
+  background: $secondary-color;
   color: $white-color;
 }
 
 .btn-link {
   background: none;
-  border-radius: 10px;
   color: $primary-color;
   outline: none;
   border: 0;
@@ -362,4 +367,21 @@ body {
 
 .invalid {
   border-bottom: 1px solid $danger-color;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-scroll {
+  overflow: scroll;
+}
+
+.transparentBackground {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
 }

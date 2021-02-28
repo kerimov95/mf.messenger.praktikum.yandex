@@ -14,6 +14,6 @@ router
     .use('/profile', ProfilePage)
     .use('/editpassword', EditPasswordPage)
     .use('/registration', RegistrationPage)
-    .use('/chat', ChatPage)
+    .use('/chats', ChatPage)
     .use('/notFound', ErrorPage)
     .start();

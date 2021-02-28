@@ -1,14 +1,20 @@
 import {IUser, ProfileApi} from '../../api/profile-api';
 import {ButtonComponent} from '../../components/button/button';
 import {InputComponent} from '../../components/input/input';
-import {Block} from '../../modules/block';
+import {Block, IBlockProps} from '../../modules/block';
 import {Router} from '../../modules/router/router';
 import {compile} from '../../utilities/templator';
 import {validateForm} from '../../utilities/validate';
 import {template} from './login.template';
 import './login.scss';
 
-export class LoginPage extends Block {
+interface ILoginPage extends IBlockProps{
+  title: string;
+  login: InputComponent;
+  password: InputComponent;
+}
+
+export class LoginPage extends Block<ILoginPage> {
     private router = new Router();
 
     constructor() {
@@ -49,10 +55,10 @@ export class LoginPage extends Block {
               const status = await userApi.signIn(user);
               switch (status.code) {
                 case 200:
-                  this.router.go('/chat');
+                  this.router.go('/chats');
                   break;
                 case 400:
-                  this.router.go('/chat');
+                  this.router.go('/chats');
                   break;
                 case 401:
                   alert('Неверный логин или пароль');
@@ -63,7 +69,7 @@ export class LoginPage extends Block {
               }
             }
           },
-        }).render(),
+        }).outerHTML(),
       });
     }
 }

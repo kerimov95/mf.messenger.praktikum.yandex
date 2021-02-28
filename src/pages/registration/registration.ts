@@ -1,14 +1,27 @@
 import {IProfile, ProfileApi} from '../../api/profile-api';
 import {ButtonComponent} from '../../components/button/button';
 import {InputComponent} from '../../components/input/input';
-import {Block} from '../../modules/block';
+import {Block, IBlockProps} from '../../modules/block';
 import {Router} from '../../modules/router/router';
 import {compile} from '../../utilities/templator';
 import {typeInput, validateForm} from '../../utilities/validate';
 import {template} from './registration.template';
 import './registration.scss';
 
-export class RegistrationPage extends Block {
+interface IRegistrationPage extends IBlockProps{
+  title: string;
+  email: InputComponent;
+  login: InputComponent;
+  phone: InputComponent;
+  password: InputComponent;
+  button: ButtonComponent;
+  /* eslint-disable camelcase */
+  first_name: InputComponent;
+  second_name: InputComponent;
+  password_confirm: InputComponent;
+}
+
+export class RegistrationPage extends Block<IRegistrationPage> {
     private profieApi = new ProfileApi();
     private router = new Router();
 
@@ -84,7 +97,7 @@ export class RegistrationPage extends Block {
                   .then((result) => {
                     switch (result.code) {
                       case 200:
-                        this.router.go('/chat');
+                        this.router.go('/chats');
                         break;
                       case 400:
                         alert('Ползователь уже существует');
@@ -110,7 +123,7 @@ export class RegistrationPage extends Block {
         phone: this.props.phone.render(),
         password: this.props.password.render(),
         password_confirm: this.props.password_confirm.render(),
-        button: this.props.button.render(),
+        button: this.props.button.outerHTML(),
       });
     }
 }

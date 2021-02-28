@@ -1,13 +1,13 @@
 type PlainObject<T = unknown> = {
-    /* eslint-disable no-unused-vars */
-    [k in string]: T;
+  /* eslint-disable no-unused-vars */
+  [k in string]: T;
 };
 
 function isPlainObject(value: unknown): value is PlainObject {
   return typeof value === 'object' &&
-        value !== null &&
-        value.constructor === Object &&
-        Object.prototype.toString.call(value) === '[object Object]';
+    value !== null &&
+    value.constructor === Object &&
+    Object.prototype.toString.call(value) === '[object Object]';
 }
 
 function isArray(value: unknown): value is [] {
@@ -66,5 +66,31 @@ function isEqual(lhs: any, rhs: any) {
   return true;
 }
 
+function merge<T extends Record<string, unknown>>(lhs: T, rhs: T): T {
+  const target = lhs as Record<string, unknown>;
+  merger(rhs);
 
-export {queryString, isPlainObject, isArray, isEqual, isArrayOrObject};
+  function merger(obj: Record<string, unknown>) {
+    if (obj === null) return;
+    for (const prop in obj) {
+      if (Object.hasOwnProperty.call(obj, prop)) {
+        if (typeof obj[prop] === 'object' && !Array.isArray(obj[prop])) {
+          if (!target[prop]) {
+            target[prop] = {};
+          };
+          target[prop] = merge(
+            target[prop] as Record<string, unknown>,
+            obj[prop] as Record<string, unknown>,
+          );
+        } else {
+          target[prop] = obj[prop];
+        }
+      }
+    }
+  }
+
+  return target as T;
+}
+
+
+export {queryString, isPlainObject, isArray, isEqual, isArrayOrObject, merge};

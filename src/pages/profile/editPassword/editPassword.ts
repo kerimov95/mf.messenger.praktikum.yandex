@@ -1,7 +1,6 @@
-import {Block} from '../../../modules/block';
+import {Block, IBlockProps} from '../../../modules/block';
 import {compile} from '../../../utilities/templator';
 import {template} from './editPassword.template';
-import {AvatarComponent} from '../../../components/avatar/avatar';
 import {BackButtonComponent} from '../../../components/backButton/backButton';
 import {ItemInputComponent} from '../../../components/itemInput/itemInput';
 import {ButtonComponent} from '../../../components/button/button';
@@ -9,18 +8,20 @@ import {validateForm} from '../../../utilities/validate';
 import {Router} from '../../../modules/router/router';
 import {ProfileApi, IPassword} from '../../../api/profile-api';
 
+interface IEditPasswordPage extends IBlockProps {
+  backButton: BackButtonComponent;
+  oldPassword: ItemInputComponent;
+  newPassword: ItemInputComponent;
+  confirmNewPassword: ItemInputComponent;
+  saveButton: ButtonComponent;
+}
 
-export class EditPasswordPage extends Block {
+export class EditPasswordPage extends Block<IEditPasswordPage> {
     private router = new Router();
     private profileApi = new ProfileApi();
 
     constructor() {
       super('main', {
-        avatar: new AvatarComponent({
-          id: 'avatar',
-          name: 'Ali',
-        }),
-
         backButton: new BackButtonComponent({
           link: '/profile',
         }),
@@ -81,12 +82,11 @@ export class EditPasswordPage extends Block {
 
     render(): string {
       return compile(template, {
-        avatar: this.props.avatar.render(),
         backButton: this.props.backButton.render(),
         oldPassword: this.props.oldPassword.render(),
         newPassword: this.props.newPassword.render(),
         confirmNewPassword: this.props.confirmNewPassword.render(),
-        saveButton: this.props.saveButton.render(),
+        saveButton: this.props.saveButton.outerHTML(),
       });
     }
 }

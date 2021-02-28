@@ -18,7 +18,7 @@ describe('Тест компонента ButtonComponent', () => {
   it('Проверка текста  Button', () => {
     const button = testButton();
     const element = button.getContent();
-    const textFromButton = element.textContent?.trim();
+    const textFromButton = element.innerText?.trim();
     expect(textFromButton).eq('Ok');
   });
 

@@ -10,9 +10,17 @@ $grey-color: grey;
     border: 0;
     background: rgba(0, 0, 0, 0.1);
     outline: none;
-    border-radius: 15px;
+    border-radius: 10px;
     height: 30px;
     padding-left: 13px;
+  }
+
+  .bar {
+    height: 100vh;
+  }
+
+  .messages {
+    height: 100vh;
   }
 
   a {
@@ -27,14 +35,6 @@ $grey-color: grey;
     background-color: rgba(0, 0, 0, 0.1);
   }
 
-  .avatar {
-    padding: 3px;
-    height: 50px;
-    width: 50px;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 48px;
-  }
-
   p {
     margin: 0;
   }
@@ -45,5 +45,58 @@ $grey-color: grey;
 
   .message {
     color: rgba(0, 0, 0, 0.4);
+  }
+
+  .dropdown {
+    width: 160px;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .messageBox {
+    margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 15px;
+    min-width: 10vw;
+    max-width: 30vw;
+    overflow: scroll;
+    min-height: 5vh;
+    max-height: 30vh;
+
+    h3 {
+      color: rgba(0, 0, 0, 0.7);
+      padding: 0;
+      margin: 0;
+      margin-bottom: 5px;
+    }
+  }
+
+  .left {
+    justify-content: flex-start;
+
+    .child {
+      background: rgba(0, 255, 0, 0.2);
+      color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  .right {
+    justify-content: flex-end;
+
+    .child {
+      background: rgba(0, 0, 0, 0.2);
+      color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
   }
 }

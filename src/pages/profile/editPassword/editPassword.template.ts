@@ -4,10 +4,7 @@ export const template = `
                 {{{backButton}}}
             </div>
             <div class="flex-fill p-1">
-                <div class="profile-form">
-
-                    {{{avatar}}}
-                    
+                <div class="profile-form">                    
                     <form id="passwordForm" class="w-100">
                         {{{oldPassword}}}
                         {{{newPassword}}}

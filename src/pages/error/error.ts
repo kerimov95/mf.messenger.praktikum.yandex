@@ -1,8 +1,8 @@
-import {Block} from '../../modules/block';
+import {Block, IBlockProps} from '../../modules/block';
 import {template} from './error.template';
 import {compile} from '../../utilities/templator';
 
-interface IErrorPage {
+interface IErrorPage extends IBlockProps {
     code: number;
     message: string;
 }

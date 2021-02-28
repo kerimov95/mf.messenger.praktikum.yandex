@@ -1,15 +1,15 @@
-import {Block} from '../block';
+import {Block, IBlockProps} from '../block';
 import {render} from '../render';
 
 interface IBlock {
-    new(): Block;
+    new(): Block<IBlockProps>;
 }
 
 class Route {
     private _pathname: string;
     private _blockClass: IBlock;
     private _props: any;
-    private _block: Block;
+    private _block: Block<IBlockProps>;
 
     constructor(pathname: string, view: IBlock, props: any) {
       this._pathname = pathname;

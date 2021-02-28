@@ -1,4 +1,5 @@
 import HTTP from '../modules/http/index';
+import {Const} from '../utilities/const';
 
 export interface IProfile {
     /* eslint-disable camelcase */
@@ -38,7 +39,7 @@ export class ProfileApi {
     private http: HTTP;
 
     constructor() {
-      this.http = new HTTP('https://ya-praktikum.tech/api/v2/');
+      this.http = new HTTP(Const.getBaseUrl());
     }
 
     public async signup(profile: IProfile): Promise<IResponceStatus> {

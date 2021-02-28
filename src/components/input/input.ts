@@ -1,11 +1,11 @@
-import {Block} from '../../modules/block';
+import {Block, IBlockProps} from '../../modules/block';
 import {compile} from '../../utilities/templator';
 import {template} from './input.template';
 import {validateTextInput} from '../../utilities/validate';
 import {IValidateInput} from '../../utilities/validate';
 import {visualizationOfvalidation} from '../../utilities/validate';
 
-export interface Iinput {
+export interface Iinput extends IBlockProps {
     id: string;
     value?: string;
     name?: string;
@@ -17,6 +17,7 @@ export interface Iinput {
     placeholder?: string;
     message?: string;
     disabled?: boolean;
+    display? : string;
 }
 
 export class InputComponent extends Block<Iinput> {
@@ -29,12 +30,13 @@ export class InputComponent extends Block<Iinput> {
       const element = document.getElementById(this.props.id);
       const input = element as HTMLInputElement;
 
-      if (this.props.disabled) {
-        const element = document.getElementById(this.props.id);
-        const input = element as HTMLInputElement;
-        if (input) {
+      if (input) {
+        if (this.props.disabled) {
           input.disabled = true;
         }
+        if (this.props.display) {
+          input.style.display = this.props.display;
+        };
       }
 
       if (this.props?.validate) {

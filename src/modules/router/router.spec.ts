@@ -1,8 +1,8 @@
 import {expect} from 'chai';
-import {Block} from '../block';
+import {Block, IBlockProps} from '../block';
 import {Router} from './router';
 
-export class MockedComponent extends Block {
+export class MockedComponent extends Block<IBlockProps> {
   constructor() {
     super('div', {});
   }
