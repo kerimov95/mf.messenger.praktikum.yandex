@@ -1,16 +1,25 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin').CleanWebpackPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+
 
 module.exports = {
-  entry: './src/app.ts',
+  entry: './src/app/app.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'app-[hash].js',
   },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
+    alias: {
+      'components': path.resolve(__dirname, 'src/app/components/'),
+      'modules': path.resolve(__dirname, 'src/app/modules/'),
+      'utilities': path.resolve(__dirname, 'src/app/utilities/'),
+      'api': path.resolve(__dirname, 'src/app/api/'),
+      'pages': path.resolve(__dirname, 'src/app/pages/'),
+      '@': path.join(__dirname, 'src'),
+    },
   },
   module: {
     rules: [

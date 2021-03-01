@@ -13,7 +13,8 @@ module.exports = (api) => {
       },
     ],
   ];
-  const plugins = ['@babel/plugin-proposal-class-properties'];
+  const plugins = ['@babel/plugin-proposal-class-properties',
+    ['babel-plugin-webpack-alias', {'config': './webpack.common.js'}]];
 
   return {presets, plugins};
 };
