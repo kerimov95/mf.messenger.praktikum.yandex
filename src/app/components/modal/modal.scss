@@ -1,0 +1,14 @@
+.modal {
+  padding: 25px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 350px;
+  background-color: white;
+  border-radius: 15px;
+  transform: translate(-50%, -50%);
+
+  label {
+    cursor: pointer;
+  }
+}

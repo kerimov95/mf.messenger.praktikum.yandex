@@ -1,0 +1,17 @@
+$primary-color: #5dd862;
+$danger-color: #dc3545;
+$white-color: white;
+$silver-color: silver;
+$grey-color: grey;
+
+.profile-page {
+  .profile-form {
+    height: 100%;
+    margin-left: 20vw;
+    margin-right: 20vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
